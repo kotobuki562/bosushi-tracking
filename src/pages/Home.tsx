@@ -1,5 +1,6 @@
-import React, { useEffect, useState } from 'react';
+import { useState } from 'react';
 import useSWR from 'swr';
+
 import { LoginButton } from '../components/AUTH0/LoginButton';
 import { LogoutButton } from '../components/AUTH0/LogoutButton';
 import type { StatusInfo } from '../types/slim';
@@ -12,16 +13,19 @@ const titles = [
   { title: 'title4' },
 ];
 
-const fetcher = (url: string): Promise<any> =>
-  fetch(url).then((res) => res.json());
+const fetcher = (url: string): Promise<any> => {
+  return fetch(url).then((res) => {
+    return res.json();
+  });
+};
 
 const Home = () => {
   const [slipNum, setSlipNum] = useState('468008693865');
-  const { data, error } = useSWR(`${API_ENDPOINT}/${slipNum}`, fetcher);
+  const { data } = useSWR(`${API_ENDPOINT}/${slipNum}`, fetcher);
 
   return (
-    <div className="App">
-      <header className="App-header">
+    <div>
+      <header>
         <LoginButton />
         <LogoutButton />
         <p>
@@ -30,7 +34,10 @@ const Home = () => {
         <input
           type="text"
           value={slipNum}
-          onChange={(e) => setSlipNum(e.target.value)}
+          // eslint-disable-next-line react/jsx-handler-names
+          onChange={(e) => {
+            return setSlipNum(e.target.value);
+          }}
         />
         {titles.map((title, i) => {
           return (
@@ -62,7 +69,7 @@ const Home = () => {
           'Loading'
         )}
         <a
-          className="App-link"
+          className="text-blue-100"
           href="https://reactjs.org"
           target="_blank"
           rel="noopener noreferrer">
