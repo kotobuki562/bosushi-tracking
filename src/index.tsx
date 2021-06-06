@@ -1,13 +1,26 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
-import App from './App';
+import { App } from './App';
+import { Auth0Provider } from '@auth0/auth0-react';
+import { ChakraProvider } from '@chakra-ui/react';
 import reportWebVitals from './reportWebVitals';
 
+const MY_AUTH_DOMAIN = process.env.REACT_APP_AUTH_DOMAIN as string;
+const MY_AUTH_CLIENT_ID = process.env.REACT_APP_CLIENT_ID as string;
+
 ReactDOM.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>,
+  <Auth0Provider
+    domain={MY_AUTH_DOMAIN!}
+    clientId={MY_AUTH_CLIENT_ID!}
+    redirectUri={window.location.origin}>
+    <React.StrictMode>
+      <ChakraProvider resetCSS={false}>
+        <App />
+      </ChakraProvider>
+    </React.StrictMode>
+  </Auth0Provider>,
+
   document.getElementById('root')
 );
 
