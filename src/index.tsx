@@ -20,7 +20,6 @@ ReactDOM.render(
       </ChakraProvider>
     </React.StrictMode>
   </Auth0Provider>,
-
   document.getElementById('root')
 );
 
