@@ -1,9 +1,11 @@
-import React from 'react';
 import { useAuth0 } from '@auth0/auth0-react';
-import { Route, BrowserRouter as Router, Switch } from 'react-router-dom';
-import Home from './pages/Home';
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 import { ProtectedRoute } from './components/AUTH0/ProtectedRoute';
-export function App() {
+import Home from './pages/Home';
+
+export const App = () => {
   const { isLoading } = useAuth0();
   if (isLoading) {
     return <p></p>;
@@ -18,4 +20,4 @@ export function App() {
       </Switch>
     </Router>
   );
-}
+};
