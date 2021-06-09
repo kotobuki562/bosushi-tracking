@@ -8,7 +8,7 @@ import Home from './pages/Home';
 export const App = () => {
   const { isLoading } = useAuth0();
   if (isLoading) {
-    return <p></p>;
+    return <p>loading</p>;
   }
 
   return (

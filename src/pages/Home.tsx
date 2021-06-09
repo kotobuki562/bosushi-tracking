@@ -1,17 +1,14 @@
+/* eslint-disable no-console */
+import { useAuth0 } from '@auth0/auth0-react';
 import { useState } from 'react';
 import useSWR from 'swr';
 
 import { LoginButton } from '../components/AUTH0/LoginButton';
 import { LogoutButton } from '../components/AUTH0/LogoutButton';
+import { Layout } from '../components/Layout';
 import type { StatusInfo } from '../types/slim';
 
 const API_ENDPOINT = process.env.REACT_APP_API_ENDPOINT;
-const titles = [
-  { title: 'title1' },
-  { title: 'title2' },
-  { title: 'title3' },
-  { title: 'title4' },
-];
 
 const fetcher = (url: string): Promise<any> => {
   return fetch(url).then((res) => {
@@ -22,10 +19,12 @@ const fetcher = (url: string): Promise<any> => {
 const Home = () => {
   const [slipNum, setSlipNum] = useState('468008693865');
   const { data } = useSWR(`${API_ENDPOINT}/${slipNum}`, fetcher);
+  const { user } = useAuth0();
+  console.log(user);
 
   return (
-    <div>
-      <header>
+    <Layout>
+      <div>
         <LoginButton />
         <LogoutButton />
         <p>
@@ -39,14 +38,6 @@ const Home = () => {
             return setSlipNum(e.target.value);
           }}
         />
-        {titles.map((title, i) => {
-          return (
-            <p key={i}>
-              {title.title}
-              {i}
-            </p>
-          );
-        })}
         {data?.errors ? <div>伝票番号に一致するものがありません</div> : null}
         {data ? (
           <div>
@@ -68,15 +59,8 @@ const Home = () => {
         ) : (
           'Loading'
         )}
-        <a
-          className="text-blue-100"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer">
-          Learn React
-        </a>
-      </header>
-    </div>
+      </div>
+    </Layout>
   );
 };
 

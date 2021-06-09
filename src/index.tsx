@@ -1,7 +1,6 @@
 import './index.css';
 
 import { Auth0Provider } from '@auth0/auth0-react';
-import { ChakraProvider } from '@chakra-ui/react';
 import { StrictMode } from 'react';
 import ReactDOM from 'react-dom';
 
@@ -19,9 +18,7 @@ ReactDOM.render(
     clientId={MY_AUTH_CLIENT_ID!}
     redirectUri={window.location.origin}>
     <StrictMode>
-      <ChakraProvider resetCSS={false}>
-        <App />
-      </ChakraProvider>
+      <App />
     </StrictMode>
   </Auth0Provider>,
   document.getElementById('root')
