@@ -1,3 +1,5 @@
+/* eslint-disable react/jsx-handler-names */
+/* eslint-disable @typescript-eslint/no-non-null-assertion */
 import './index.css';
 
 import { Auth0Provider } from '@auth0/auth0-react';
@@ -11,16 +13,15 @@ const MY_AUTH_DOMAIN = process.env.REACT_APP_AUTH_DOMAIN as string;
 const MY_AUTH_CLIENT_ID = process.env.REACT_APP_CLIENT_ID as string;
 
 ReactDOM.render(
-  <Auth0Provider
-    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-    domain={MY_AUTH_DOMAIN!}
-    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-    clientId={MY_AUTH_CLIENT_ID!}
-    redirectUri={window.location.origin}>
-    <StrictMode>
+  <StrictMode>
+    <Auth0Provider
+      domain={MY_AUTH_DOMAIN!}
+      clientId={MY_AUTH_CLIENT_ID!}
+      redirectUri={window.location.origin}
+      useRefreshTokens={true}>
       <App />
-    </StrictMode>
-  </Auth0Provider>,
+    </Auth0Provider>
+  </StrictMode>,
   document.getElementById('root')
 );
 
