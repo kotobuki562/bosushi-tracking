@@ -9,7 +9,6 @@ import { memo, useCallback } from 'react';
 
 import { MenuItem } from '../components/Menu/Menu';
 
-// eslint-disable-next-line react/display-name
 export const Header = memo(() => {
   const { user, isAuthenticated, logout, loginWithRedirect } = useAuth0();
 
