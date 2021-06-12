@@ -1,3 +1,4 @@
+/* eslint-disable react/display-name */
 /* eslint-disable tailwindcss/no-custom-classname */
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import {
@@ -5,6 +6,7 @@ import {
   HomeIcon,
   UserCircleIcon,
 } from '@heroicons/react/outline';
+import { memo } from 'react';
 import { Link } from 'react-router-dom';
 
 const links = [
@@ -21,10 +23,10 @@ const links = [
   },
 ];
 
-export const Sidebar = () => {
+export const Sidebar = memo(() => {
   return (
     <nav className="group flex fixed top-14 left-0 flex-col items-center w-14 hover:w-64 md:w-64 h-full text-white duration-300 bg-teal-800">
-      <div className="w-full">
+      <div className="mt-4 w-full">
         {links.map((link) => {
           return (
             <Link
@@ -41,4 +43,4 @@ export const Sidebar = () => {
       </div>
     </nav>
   );
-};
+});

@@ -3,7 +3,7 @@ import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 import { ProtectedRoute } from './components/AUTH0/ProtectedRoute';
-import Home from './pages/Home';
+import { Home } from './pages/Home';
 
 export const App = () => {
   const { isLoading } = useAuth0();

@@ -1,10 +1,11 @@
+/* eslint-disable react/display-name */
 /* eslint-disable no-console */
-import { useAuth0 } from '@auth0/auth0-react';
-import { useState } from 'react';
+import type { ChangeEvent } from 'react';
+import { memo, useCallback, useState } from 'react';
 import useSWR from 'swr';
 
-import { LoginButton } from '../components/AUTH0/LoginButton';
-import { LogoutButton } from '../components/AUTH0/LogoutButton';
+// import { Button } from '../components/Button/Button';
+import { Input } from '../components/Input/Input';
 import { Layout } from '../components/Layout';
 import type { StatusInfo } from '../types/slim';
 
@@ -16,27 +17,27 @@ const fetcher = (url: string): Promise<any> => {
   });
 };
 
-const Home = () => {
+export const Home = memo(() => {
   const [slipNum, setSlipNum] = useState('468008693865');
   const { data } = useSWR(`${API_ENDPOINT}/${slipNum}`, fetcher);
-  const { user } = useAuth0();
-  console.log(user);
+
+  const handleSlipNumChange = useCallback(
+    (e: ChangeEvent<HTMLInputElement>) => {
+      return setSlipNum(e.target.value);
+    },
+    []
+  );
 
   return (
     <Layout>
       <div>
-        <LoginButton />
-        <LogoutButton />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <input
-          type="text"
+        <Input
+          label="伝票番号を入力してください。"
+          name="slipNum"
           value={slipNum}
-          // eslint-disable-next-line react/jsx-handler-names
-          onChange={(e) => {
-            return setSlipNum(e.target.value);
-          }}
+          onChange={handleSlipNumChange}
+          placeholder="12桁の伝票番号"
+          type="number"
         />
         {data?.errors ? <div>伝票番号に一致するものがありません</div> : null}
         {data ? (
@@ -62,6 +63,4 @@ const Home = () => {
       </div>
     </Layout>
   );
-};
-
-export default Home;
+});
