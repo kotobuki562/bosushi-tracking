@@ -2,7 +2,7 @@ export type StatusInfo = {
   status: string | null;
   placeName: string | null;
   placeCode: string | null;
-  dateTime: string | null;
+  dateTime: string | number | Date;
 };
 
 export type DataInfo = {

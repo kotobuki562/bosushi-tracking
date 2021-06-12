@@ -9,14 +9,14 @@ import ReactDOM from 'react-dom';
 import { App } from './App';
 import { reportWebVitals } from './reportWebVitals';
 
-const MY_AUTH_DOMAIN = process.env.REACT_APP_AUTH_DOMAIN as string;
-const MY_AUTH_CLIENT_ID = process.env.REACT_APP_CLIENT_ID as string;
+const domain = process.env.REACT_APP_AUTH_DOMAIN as string;
+const clientId = process.env.REACT_APP_CLIENT_ID as string;
 
 ReactDOM.render(
   <StrictMode>
     <Auth0Provider
-      domain={MY_AUTH_DOMAIN!}
-      clientId={MY_AUTH_CLIENT_ID!}
+      domain={domain}
+      clientId={clientId}
       redirectUri={window.location.origin}
       useRefreshTokens={true}>
       <App />
