@@ -10,15 +10,16 @@ import { App } from './App';
 import { reportWebVitals } from './reportWebVitals';
 
 const domain = process.env.REACT_APP_AUTH_DOMAIN as string;
-const clientId = process.env.REACT_APP_CLIENT_ID as string;
+const client = process.env.REACT_APP_CLIENT_ID as string;
 
 ReactDOM.render(
   <StrictMode>
     <Auth0Provider
       domain={domain}
-      clientId={clientId}
+      clientId={client}
       redirectUri={window.location.origin}
-      useRefreshTokens={true}>
+      useRefreshTokens={true}
+      cacheLocation="localstorage">
       <App />
     </Auth0Provider>
   </StrictMode>,
