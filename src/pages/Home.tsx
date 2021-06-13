@@ -7,7 +7,6 @@ import type { ChangeEvent } from 'react';
 import { memo, useCallback, useState } from 'react';
 import useSWR from 'swr';
 
-// import { Button } from '../components/Button/Button';
 import { Input } from '../components/Input/Input';
 import { Layout } from '../components/Layout';
 import type { StatusInfo } from '../types/slim';

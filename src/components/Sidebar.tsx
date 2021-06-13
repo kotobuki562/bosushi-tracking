@@ -17,7 +17,7 @@ const links = [
     icon: <UserCircleIcon className="w-7 h-7" />,
   },
   {
-    href: '/item',
+    href: '/items',
     pathName: 'ITEM',
     icon: <ArchiveIcon className="w-7 h-7" />,
   },
