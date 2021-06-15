@@ -31,7 +31,7 @@ export const Home = memo(() => {
 
   return (
     <Layout>
-      <div className="p-8">
+      <div className="p-8 h-full">
         <Input
           label="伝票番号を入力してください。"
           name="slipNum"
