@@ -1,3 +1,4 @@
+/* eslint-disable tailwindcss/classnames-order */
 /* eslint-disable jsx-a11y/iframe-has-title */
 /* eslint-disable tailwindcss/no-custom-classname */
 /* eslint-disable react/display-name */
