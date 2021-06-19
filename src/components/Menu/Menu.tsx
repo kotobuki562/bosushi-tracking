@@ -8,6 +8,7 @@ type Props = {
   menuBtn: ReactNode;
   menuItems: ReactNode;
 };
+
 export const MenuItem: VFC<Props> = memo((props) => {
   return (
     <div className="w-full text-right">
@@ -21,7 +22,7 @@ export const MenuItem: VFC<Props> = memo((props) => {
           leave="transition ease-in duration-75"
           leaveFrom="transform opacity-100 scale-100"
           leaveTo="transform opacity-0 scale-95">
-          <Menu.Items className="absolute right-0 w-56 rounded-md divide-y divide-gray-100 ring-1 ring-black ring-opacity-5 shadow-lg origin-top-right focus:outline-none bg-teal-100">
+          <Menu.Items className="absolute right-0 w-56 bg-teal-100 rounded-md divide-y divide-gray-100 ring-1 ring-black ring-opacity-5 shadow-lg origin-top-right focus:outline-none">
             <div className="py-1 px-1 ">{props.menuItems}</div>
           </Menu.Items>
         </Transition>
