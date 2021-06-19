@@ -1,20 +1,23 @@
 /* eslint-disable tailwindcss/no-custom-classname */
 /* eslint-disable react/display-name */
-import type { ChangeEventHandler, VFC } from 'react';
+import type { VFC } from 'react';
 import { memo } from 'react';
+import type { UseFormRegisterReturn } from 'react-hook-form';
 
 type Props = {
   label: string;
-  name: string;
-  type: string;
-  value: string | number | undefined;
-  onChange: ChangeEventHandler;
   placeholder?: string;
+
+  register: UseFormRegisterReturn;
+  required?: boolean;
+  pattern?: string;
+  // RegExp?
+  maxLength?: number;
 };
 
-export const Input: VFC<Props> = memo((props) => {
+export const HookInput: VFC<Props> = memo((props) => {
   return (
-    <label className="flex flex-col mb-4" key={props.name}>
+    <label className="flex flex-col mb-4">
       <span className="mb-2 text-base font-semibold text-teal-600">
         {props.label}
       </span>

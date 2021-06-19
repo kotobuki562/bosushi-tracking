@@ -2,10 +2,12 @@
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
 import './index.css';
 
+import { ApolloProvider } from '@apollo/client/react';
 import { Auth0Provider } from '@auth0/auth0-react';
 import { StrictMode } from 'react';
 import ReactDOM from 'react-dom';
 
+import { apolloClient } from './apollo/apolloClient';
 import { App } from './App';
 import { reportWebVitals } from './reportWebVitals';
 
@@ -14,14 +16,16 @@ const client = process.env.REACT_APP_CLIENT_ID as string;
 
 ReactDOM.render(
   <StrictMode>
-    <Auth0Provider
-      domain={domain}
-      clientId={client}
-      redirectUri={window.location.origin}
-      useRefreshTokens={true}
-      cacheLocation="localstorage">
-      <App />
-    </Auth0Provider>
+    <ApolloProvider client={apolloClient}>
+      <Auth0Provider
+        domain={domain}
+        clientId={client}
+        redirectUri={window.location.origin}
+        useRefreshTokens={true}
+        cacheLocation="localstorage">
+        <App />
+      </Auth0Provider>
+    </ApolloProvider>
   </StrictMode>,
   document.getElementById('root')
 );
