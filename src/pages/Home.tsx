@@ -6,6 +6,7 @@
 import { format } from 'date-fns';
 import type { ChangeEvent } from 'react';
 import { memo, useCallback, useState } from 'react';
+import { useForm } from 'react-hook-form';
 import useSWR from 'swr';
 
 import { Input } from '../components/Input/Input';
@@ -20,7 +21,8 @@ const fetcher = async (url: string): Promise<any> => {
 };
 
 export const Home = memo(() => {
-  const [slipNum, setSlipNum] = useState('468008693865');
+  const { register } = useForm();
+  const [slipNum, setSlipNum] = useState('');
   const { data } = useSWR(`${API_ENDPOINT}/${slipNum}`, fetcher);
 
   const handleSlipNumChange = useCallback(
@@ -33,6 +35,7 @@ export const Home = memo(() => {
   return (
     <Layout>
       <div className="p-8 h-full">
+        <input defaultValue="test" {...register('example')} />
         <Input
           label="伝票番号を入力してください。"
           name="slipNum"

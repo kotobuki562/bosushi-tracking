@@ -32,8 +32,18 @@ const ADD_TEXT = gql`
   }
 `;
 
+const GET_ALL_ORDERS = gql`
+  query GetAllOrders {
+    orders {
+      id
+      itemName
+      description
+    }
+  }
+`;
+
 const ADD_ORDERS = gql`
-  mutation MyQuery(
+  mutation InsertOrders(
     $user_id: String!
     $createdAt: String!
     $delivered: Boolean!
@@ -52,8 +62,7 @@ const ADD_ORDERS = gql`
         createdAt: $createdAt
         updatedAt: $updateAt
       }
-    )
-    returning {
+    ) {
       user_id
       delivered
       description
@@ -72,6 +81,7 @@ export const Items = memo(() => {
   const [description, setDescription] = useState('');
   const [slipNum, setSlipNum] = useState<number | undefined>();
   const [isLoading, setIsLoading] = useState(false);
+  const { data: orderData } = useQuery(GET_ALL_ORDERS);
   const { loading, error, data: texts } = useQuery(GET_TEXT);
   const [addPostsText] = useMutation(ADD_TEXT, {
     onCompleted: () => {
@@ -144,6 +154,7 @@ export const Items = memo(() => {
         description: description,
         number: slipNum,
       },
+      refetchQueries: [{ query: GET_ALL_ORDERS }],
     })
       .then(() => {
         setIsLoading(false);
@@ -160,9 +171,11 @@ export const Items = memo(() => {
   return (
     <Layout>
       <div className="p-8">
+        <h2>テキスト</h2>
         {texts.posts.map((text: any) => {
           return <p key={text.id}>{text.text}</p>;
         })}
+
         <form onSubmit={handleAddTodo}>
           <Input
             label="テキストを入力"
@@ -180,6 +193,16 @@ export const Items = memo(() => {
             useage="other"
           />
         </form>
+
+        <h2>オーダーズ</h2>
+        {orderData.orders?.map((order: any) => {
+          return (
+            <div key={order.id}>
+              <p>{order.itemName}</p>
+              <p>{order.description}</p>
+            </div>
+          );
+        })}
 
         <form onSubmit={handleAddOrders}>
           <Input
