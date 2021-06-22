@@ -7,10 +7,8 @@ import { format } from 'date-fns';
 import type { ChangeEvent } from 'react';
 import { memo, useCallback, useState } from 'react';
 import { useForm } from 'react-hook-form';
-import Lottie from 'react-lottie';
 import useSWR from 'swr';
 
-import animationData from '../animations/1103-confetti-outline-edited.json';
 import { Input } from '../components/Input/Input';
 import { Layout } from '../components/Layout';
 import type { StatusInfo } from '../types/slim';
@@ -23,14 +21,6 @@ const fetcher = async (url: string): Promise<any> => {
 };
 
 export const Home = memo(() => {
-  const defaultOptions = {
-    loop: true,
-    autoplay: true,
-    animationData,
-    rendererSettings: {
-      preserveAspectRatio: 'xMidYMid slice',
-    },
-  };
   const { register } = useForm();
   const [slipNum, setSlipNum] = useState('');
   const { data } = useSWR(`${API_ENDPOINT}/${slipNum}`, fetcher);
@@ -45,7 +35,6 @@ export const Home = memo(() => {
   return (
     <Layout>
       <div className="p-8 h-full">
-        <Lottie options={defaultOptions} height={500} width={500} />
         <input defaultValue="test" {...register('example')} />
         <Input
           label="伝票番号を入力してください。"

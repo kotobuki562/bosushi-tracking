@@ -3,6 +3,9 @@ import { Spinner } from '@chakra-ui/react';
 import cc from 'classcat';
 import type { ComponentProps, MouseEventHandler, VFC } from 'react';
 import { memo } from 'react';
+import Lottie from 'react-lottie';
+
+import animationData from '../../animations/1103-confetti-outline-edited.json';
 
 type Btninfo = {
   btnText: string;
@@ -14,9 +17,18 @@ type Btninfo = {
   type?: 'submit' | 'button' | 'reset';
   disabled?: boolean;
   isLoading?: boolean;
+  isSuccess?: boolean;
 };
 
 export const Button: VFC<Btninfo> = memo((props) => {
+  const defaultOptions = {
+    loop: true,
+    autoplay: true,
+    animationData,
+    rendererSettings: {
+      preserveAspectRatio: 'xMidYMid slice',
+    },
+  };
   return (
     <button
       disabled={props.disabled}
@@ -43,8 +55,14 @@ export const Button: VFC<Btninfo> = memo((props) => {
         <Spinner className="w-5 h-5" />
       ) : (
         <>
-          <p className="mr-1">{props.btnText}</p>
-          {props.rightIcon ? <div>{props.rightIcon}</div> : null}
+          {props.isSuccess ? (
+            <Lottie options={defaultOptions} height={30} width={30} />
+          ) : (
+            <>
+              <p className="mr-1">{props.btnText}</p>
+              {props.rightIcon ? <div>{props.rightIcon}</div> : null}
+            </>
+          )}
         </>
       )}
     </button>
