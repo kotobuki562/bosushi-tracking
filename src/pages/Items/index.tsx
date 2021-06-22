@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable @typescript-eslint/naming-convention */
 /* eslint-disable no-console */
-import { gql, useMutation, useQuery } from '@apollo/client';
+import { gql, useMutation, useQuery, useSubscription } from '@apollo/client';
 import { useAuth0 } from '@auth0/auth0-react';
 import { formatISO } from 'date-fns';
 import type { ChangeEvent } from 'react';
@@ -22,7 +22,9 @@ export const Items = memo(() => {
   const [slipNum, setSlipNum] = useState<number | undefined>();
   const [isLoading, setIsLoading] = useState(false);
   const { data: orderData } = useQuery(GET_ALL_ORDERS);
-  const { loading, error, data: texts } = useQuery(GET_TEXT);
+  const { data: texts } = useQuery(GET_TEXT);
+
+  console.log(orderData);
 
   const [addPostsText] = useMutation(ADD_TEXT, {
     onCompleted: () => {
@@ -30,11 +32,7 @@ export const Items = memo(() => {
     },
   });
 
-  const [addOrders] = useMutation(ADD_ORDERS, {
-    onCompleted: () => {
-      return setAddText('');
-    },
-  });
+  const [addOrders] = useMutation(ADD_ORDERS);
 
   const handleSlipNumChange = useCallback(
     (e: ChangeEvent<HTMLInputElement>) => {
@@ -104,14 +102,16 @@ export const Items = memo(() => {
       });
   };
 
-  if (loading) return <p>Loading...</p>;
-  if (error) return <p>{`Error! ${error.message}`}</p>;
-
   return (
     <Layout>
       <div className="p-8">
+        <img
+          className="w-24 h-24"
+          src="https://user-images.githubusercontent.com/67810971/122642910-c69d1a80-d147-11eb-8561-b21a3bb4e3dc.gif"
+          alt="gif"
+        />
         <h2>テキスト</h2>
-        {texts.posts.map((text: any) => {
+        {texts?.posts?.map((text: any) => {
           return <p key={text.id}>{text.text}</p>;
         })}
 
@@ -140,9 +140,10 @@ export const Items = memo(() => {
         </form>
 
         <h2>オーダーズ</h2>
-        {orderData.orders?.map((order: any) => {
+        {orderData?.orders?.map((order: any) => {
           return (
             <div key={order.id}>
+              <p>{order.number}</p>
               <p>{order.itemName}</p>
               <p>{order.description}</p>
             </div>
@@ -208,11 +209,16 @@ const ADD_TEXT = gql`
 `;
 
 const GET_ALL_ORDERS = gql`
-  query GetAllOrders {
+  query Getorders {
     orders {
       id
+      user_id
+      number
       itemName
       description
+      delivered
+      createdAt
+      updatedAt
     }
   }
 `;

@@ -71,7 +71,7 @@ export const Header = memo(() => {
                       <Menu.Item key={menu.name}>
                         <button
                           onClick={menu.onClick}
-                          className="group flex items-center py-2 px-2 my-1 w-full text-sm rounded-md focus:outline-none text-teal-600 hover:bg-teal-200 ">
+                          className="group flex items-center py-2 px-2 my-1 w-full text-sm text-teal-600 hover:bg-teal-200 rounded-md focus:outline-none ">
                           {menu.icon}
                           {menu.name}
                         </button>
@@ -100,7 +100,7 @@ export const Header = memo(() => {
                       <Menu.Item key={menu.name}>
                         <button
                           onClick={menu.onClick}
-                          className="group flex items-center py-2 px-2 my-1 w-full text-sm rounded-md focus:outline-none text-teal-600 hover:bg-teal-200 ">
+                          className="group flex items-center py-2 px-2 my-1 w-full text-sm text-teal-600 hover:bg-teal-200 rounded-md focus:outline-none ">
                           {menu.icon}
                           {menu.name}
                         </button>
